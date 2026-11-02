@@ -10,11 +10,10 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
       - name: Build Debug APK
         run: |
-          if [ -f "./gradlew" ]; then chmod +x ./gradlew && ./gradlew assembleDebug; else cd android && chmod +x ./gradlew && ./gradlew assembleDebug; fi
+          chmod +x ./gradlew || true
+          ./gradlew assembleDebug || (cd android && ./gradlew assembleDebug)
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
