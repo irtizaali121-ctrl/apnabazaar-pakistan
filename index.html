@@ -1,93 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="htmlRoot">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Modern Professional UI</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Inter', sans-serif; }
-  </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apna Bazaar Pakistan - Complete App</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Nastaliq+Urdu&display=swap" rel="stylesheet">
+<script>tailwind.config={darkMode:'class'}</script>
+<style>body{font-family:'Poppins',sans-serif}.urdu{font-family:'Noto Nastaliq Urdu',serif}</style>
 </head>
-<body class="bg-[#f8fafc] min-h-screen">
+<body class="bg-[#f6f8f7] dark:bg-zinc-900 text-zinc-900 dark:text-white pb-24 transition">
 
-  <!-- Navbar -->
-  <nav class="bg-white border-b border-gray-100 sticky top-0 z-10">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="flex items-center gap-2">
-        <div class="w-8 h-8 bg-black rounded-lg flex items-center justify-center text-white font-bold">P</div>
-        <span class="font-semibold text-lg">ProDesign</span>
-      </div>
-      <div class="hidden md:flex gap-8 text-sm text-gray-500 font-medium">
-        <a class="text-black" href="#">Dashboard</a>
-        <a href="#">Projects</a>
-        <a href="#">Team</a>
-        <a href="#">Analytics</a>
-      </div>
-      <button class="bg-black text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-gray-800 transition">Get Started</button>
+<!-- HEADER: Logo, Search, Location, Theme, Lang -->
+<header class="sticky top-0 z-30 bg-white/90 dark:bg-zinc-800/90 backdrop-blur border-b border-gray-100 dark:border-zinc-700 px-4 py-3">
+  <div class="max-w-6xl mx-auto flex justify-between items-center gap-2">
+    <div class="flex items-center gap-2"><div class="w-9 h-9 bg-green-600 rounded-xl flex items-center justify-center text-white font-bold">A</div><div><h1 class="font-bold leading-none text-[15px]" data-en="Apna Bazaar" data-ur="اپنا بازار">Apna Bazaar</h1><p class="text-[9px] font-bold text-green-600 tracking-widest">PAKISTAN • PKR</p></div></div>
+    <div class="flex items-center gap-2">
+      <select id="citySelect" class="text-[11px] bg-gray-100 dark:bg-zinc-700 px-2 py-1.5 rounded-full"><option>Lahore</option><option>Karachi</option><option>Islamabad</option><option>Multan</option><option>Peshawar</option></select>
+      <button onclick="toggleLang()" class="text-[11px] bg-black dark:bg-white text-white dark:text-black px-3 py-1.5 rounded-full font-bold">اردو / EN</button>
+      <button onclick="toggleTheme()" class="w-8 h-8 bg-gray-100 dark:bg-zinc-700 rounded-full">🌙</button>
+      <button onclick="openAuth()" id="profileBtn" class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">👤</button>
     </div>
-  </nav>
+  </div>
+  <div class="max-w-6xl mx-auto mt-3 flex gap-2">
+    <div class="flex-1 bg-gray-100 dark:bg-zinc-700 rounded-full px-4 py-2.5 flex items-center gap-2"><span>🔍</span><input id="searchInput" oninput="doSearch()" data-en-ph="Search products..." data-ur-ph="مصنوعات تلاش کریں..." placeholder="Search products..." class="w-full bg-transparent outline-none text-sm"></div>
+    <button onclick="showPage('sell')" class="bg-green-600 text-white px-5 py-2.5 rounded-full text-sm font-bold">+ Sell</button>
+  </div>
+</header>
 
-  <!-- Main Content -->
-  <main class="max-w-7xl mx-auto px-6 py-10">
-    <div class="flex justify-between items-end mb-8">
-      <div>
-        <h1 class="text-4xl font-bold tracking-tight">Welcome back, Ali</h1>
-        <p class="text-gray-500 mt-2">Here's what's happening with your projects today.</p>
-      </div>
-      <button class="hidden md:block border border-gray-200 bg-white px-4 py-2 rounded-full text-sm">+ New Project</button>
-    </div>
+<main class="max-w-6xl mx-auto px-4">
 
-    <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-      <div class="bg-white p-6 rounded-[24px] border border-gray-100 shadow-sm">
-        <p class="text-sm text-gray-500">Total Revenue</p>
-        <h2 class="text-3xl font-bold mt-2">$48,2k</h2>
-        <p class="text-xs text-green-600 bg-green-50 inline-block px-2 py-1 rounded-full mt-3">↑ 12.5% vs last month</p>
-      </div>
-      <div class="bg-white p-6 rounded-[24px] border border-gray-100 shadow-sm">
-        <p class="text-sm text-gray-500">Active Projects</p>
-        <h2 class="text-3xl font-bold mt-2">24</h2>
-        <p class="text-xs text-gray-500 mt-3">3 projects due this week</p>
-      </div>
-      <div class="bg-black text-white p-6 rounded-[24px] shadow-sm">
-        <p class="text-sm text-gray-400">Team Efficiency</p>
-        <h2 class="text-3xl font-bold mt-2">94%</h2>
-        <p class="text-xs text-gray-400 mt-3">Your team is doing great!</p>
-      </div>
-    </div>
+<!-- HOME PAGE: All Product Sections -->
+<div id="page-home">
+  <div class="mt-4 bg-black dark:bg-zinc-800 rounded-[24px] p-5 text-white flex justify-between"><div><span class="bg-white/20 text-[10px] px-2 py-1 rounded-full">✓ PROTECTED</span><h2 class="font-bold text-xl mt-2" data-en="Shop With Protection" data-ur="تحفظ کے ساتھ خریداری">Shop With Protection</h2><p class="text-xs opacity-70">JazzCash • Easypaisa • Cards</p></div><div class="text-4xl">🛡️</div></div>
+  
+  <!-- Categories 9 as per list -->
+  <div class="mt-6"><div class="flex justify-between"><h3 class="font-bold" data-en="Categories (9)" data-ur="زمرہ جات (9)">Categories (9)</h3><button onclick="showPage('categories')" class="text-xs text-green-600 font-bold">View All</button></div>
+  <div id="catGrid" class="grid grid-cols-3 gap-2 mt-3"></div></div>
 
-    <!-- Professional Table -->
-    <div class="bg-white rounded-[24px] border border-gray-100 shadow-sm overflow-hidden">
-      <div class="p-6 border-b border-gray-100 flex justify-between items-center">
-        <h3 class="font-semibold">Recent Projects</h3>
-        <a href="#" class="text-sm font-medium underline">View All</a>
-      </div>
-      <div class="p-2">
-        <div class="flex items-center justify-between p-4 hover:bg-gray-50 rounded-xl transition">
-          <div class="flex items-center gap-4">
-            <div class="w-10 h-10 bg-violet-100 rounded-full flex items-center justify-center">🎨</div>
-            <div>
-              <p class="font-medium text-sm">Modern App Redesign</p>
-              <p class="text-xs text-gray-500">Updated 2 hours ago</p>
-            </div>
-          </div>
-          <span class="text-xs bg-green-50 text-green-700 px-3 py-1 rounded-full font-medium">Completed</span>
-        </div>
-        <div class="flex items-center justify-between p-4 hover:bg-gray-50 rounded-xl transition">
-          <div class="flex items-center gap-4">
-            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">💼</div>
-            <div>
-              <p class="font-medium text-sm">Client Dashboard</p>
-              <p class="text-xs text-gray-500">Due tomorrow</p>
-            </div>
-          </div>
-          <span class="text-xs bg-yellow-50 text-yellow-700 px-3 py-1 rounded-full font-medium">In Progress</span>
-        </div>
-      </div>
-    </div>
-  </main>
-
-</body>
-</html>
+  <div class="mt-6 flex gap-2 overflow-auto"><button onclick="filterType('featured')" class="bg-black text-white text-xs px-4 py-2 rounded-full">Featured</button><button onclick="filterType('latest')" class="bg-white dark:bg-zinc-800 border text-xs px-4 py-2 rounded-full">Latest</button>
