@@ -11,25 +11,24 @@ jobs:
           distribution: 'temurin'
       - uses: android-actions/setup-android@v3
 
-      - name: Create Fresh Android Project
+      - name: Build Simple APK
         run: |
-          rm -rf android
-          mkdir -p android/app/src/main/java/com/apnabazaar/app
-          mkdir -p android/app/src/main/res/layout
+          python3 << 'PY'
+          import os
+          os.system("rm -rf android")
+          os.makedirs("android/app/src/main/java/com/apnabazaar/app", exist_ok=True)
           
-          cat > android/settings.gradle << 'EOF'
-          include ':app'
-          EOF
+          open("android/settings.gradle","w").write("include ':app'")
           
-          cat > android/build.gradle << 'EOF'
+          open("android/build.gradle","w").write("""
           buildscript {
               repositories { google(); mavenCentral() }
               dependencies { classpath 'com.android.tools.build:gradle:8.2.2' }
           }
           allprojects { repositories { google(); mavenCentral() } }
-          EOF
+          """)
           
-          cat > android/app/build.gradle << 'EOF'
+          open("android/app/build.gradle","w").write("""
           plugins { id 'com.android.application' }
           android {
               namespace 'com.apnabazaar.app'
@@ -47,12 +46,12 @@ jobs:
               }
           }
           dependencies { implementation 'androidx.appcompat:appcompat:1.6.1' }
-          EOF
+          """)
           
-          cat > android/app/src/main/AndroidManifest.xml << 'EOF'
+          open("android/app/src/main/AndroidManifest.xml","w").write("""
           <manifest xmlns:android="http://schemas.android.com/apk/res/android">
               <uses-permission android:name="android.permission.INTERNET"/>
-              <application android:label="Apna Bazaar Pakistan" android:theme="@android:style/Theme.NoTitleBar">
+              <application android:label="Apna Bazaar" android:theme="@android:style/Theme.NoTitleBar">
                   <activity android:name=".MainActivity" android:exported="true">
                       <intent-filter>
                           <action android:name="android.intent.action.MAIN"/>
@@ -61,16 +60,16 @@ jobs:
                   </activity>
               </application>
           </manifest>
-          EOF
+          """)
           
-          cat > android/app/src/main/java/com/apnabazaar/app/MainActivity.java << 'EOF'
+          open("android/app/src/main/java/com/apnabazaar/app/MainActivity.java","w").write("""
           package com.apnabazaar.app;
           import android.app.Activity;
           import android.os.Bundle;
           import android.webkit.WebView;
           import android.webkit.WebViewClient;
           public class MainActivity extends Activity {
-              @Override protected void onCreate(Bundle b){
+              protected void onCreate(Bundle b){
                   super.onCreate(b);
                   WebView w = new WebView(this);
                   w.getSettings().setJavaScriptEnabled(true);
@@ -79,9 +78,10 @@ jobs:
                   setContentView(w);
               }
           }
-          EOF
+          """)
+          PY
 
-      - name: Build APK
+      - name: Compile APK
         run: |
           cd android
           gradle wrapper --gradle-version 8.5
