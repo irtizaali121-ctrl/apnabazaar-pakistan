@@ -1,12 +1,93 @@
-<!-- ORIGINAL LOGO - Paste this where ApnaBazaar text is -->
-<div style="display:flex; align-items:center; gap:8px; font-family:'Inter', sans-serif;">
-  <!-- Icon -->
-  <div style="width:36px; height:36px; background:linear-gradient(135deg, #FF6B00, #FF8C32); border-radius:10px; display:flex; align-items:center; justify-content:center; color:white; font-weight:900; font-size:18px; box-shadow:0 4px 10px rgba(255,107,0,0.3);">
-    A
-  </div>
-  <!-- Text -->
-  <div style="line-height:1;">
-    <div style="font-weight:900; font-size:18px; color:#111827; letter-spacing:-0.5px;">Apna<span style="color:#FF6B00;">Bazaar</span></div>
-    <div style="font-size:9px; color:#9CA3AF; font-weight:600; letter-spacing:1px; margin-top:-2px;">PAKISTAN</div>
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Professional UI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-[#f8fafc] min-h-screen">
+
+  <!-- Navbar -->
+  <nav class="bg-white border-b border-gray-100 sticky top-0 z-10">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-black rounded-lg flex items-center justify-center text-white font-bold">P</div>
+        <span class="font-semibold text-lg">ProDesign</span>
+      </div>
+      <div class="hidden md:flex gap-8 text-sm text-gray-500 font-medium">
+        <a class="text-black" href="#">Dashboard</a>
+        <a href="#">Projects</a>
+        <a href="#">Team</a>
+        <a href="#">Analytics</a>
+      </div>
+      <button class="bg-black text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-gray-800 transition">Get Started</button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-6 py-10">
+    <div class="flex justify-between items-end mb-8">
+      <div>
+        <h1 class="text-4xl font-bold tracking-tight">Welcome back, Ali</h1>
+        <p class="text-gray-500 mt-2">Here's what's happening with your projects today.</p>
+      </div>
+      <button class="hidden md:block border border-gray-200 bg-white px-4 py-2 rounded-full text-sm">+ New Project</button>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="bg-white p-6 rounded-[24px] border border-gray-100 shadow-sm">
+        <p class="text-sm text-gray-500">Total Revenue</p>
+        <h2 class="text-3xl font-bold mt-2">$48,2k</h2>
+        <p class="text-xs text-green-600 bg-green-50 inline-block px-2 py-1 rounded-full mt-3">↑ 12.5% vs last month</p>
+      </div>
+      <div class="bg-white p-6 rounded-[24px] border border-gray-100 shadow-sm">
+        <p class="text-sm text-gray-500">Active Projects</p>
+        <h2 class="text-3xl font-bold mt-2">24</h2>
+        <p class="text-xs text-gray-500 mt-3">3 projects due this week</p>
+      </div>
+      <div class="bg-black text-white p-6 rounded-[24px] shadow-sm">
+        <p class="text-sm text-gray-400">Team Efficiency</p>
+        <h2 class="text-3xl font-bold mt-2">94%</h2>
+        <p class="text-xs text-gray-400 mt-3">Your team is doing great!</p>
+      </div>
+    </div>
+
+    <!-- Professional Table -->
+    <div class="bg-white rounded-[24px] border border-gray-100 shadow-sm overflow-hidden">
+      <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+        <h3 class="font-semibold">Recent Projects</h3>
+        <a href="#" class="text-sm font-medium underline">View All</a>
+      </div>
+      <div class="p-2">
+        <div class="flex items-center justify-between p-4 hover:bg-gray-50 rounded-xl transition">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 bg-violet-100 rounded-full flex items-center justify-center">🎨</div>
+            <div>
+              <p class="font-medium text-sm">Modern App Redesign</p>
+              <p class="text-xs text-gray-500">Updated 2 hours ago</p>
+            </div>
+          </div>
+          <span class="text-xs bg-green-50 text-green-700 px-3 py-1 rounded-full font-medium">Completed</span>
+        </div>
+        <div class="flex items-center justify-between p-4 hover:bg-gray-50 rounded-xl transition">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">💼</div>
+            <div>
+              <p class="font-medium text-sm">Client Dashboard</p>
+              <p class="text-xs text-gray-500">Due tomorrow</p>
+            </div>
+          </div>
+          <span class="text-xs bg-yellow-50 text-yellow-700 px-3 py-1 rounded-full font-medium">In Progress</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
