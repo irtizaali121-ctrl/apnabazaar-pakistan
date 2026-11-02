@@ -1,37 +1,65 @@
-/* Modern Card - Paste in <style> */
-.modern-card {
-  background: #FFFFFF;
-  border-radius: 16px;
-  border: 1px solid #F3F4F6;
-  overflow: hidden;
-  transition: all 0.3s ease;
+<!-- HOMEPAGE CODE - Paste in index.html <body> -->
+<div id="homepage" style="background:#FAFAFA; min-height:100vh; padding-bottom:90px; font-family:Inter, sans-serif;">
+
+<!-- 1. HEADER -->
+<div style="background:white; padding:12px 16px; display:flex; align-items:center; gap:12px; position:sticky; top:0; z-index:99; border-bottom:1px solid #F3F4F6;">
+  <div style="font-weight:900; color:#FF6B00; font-size:20px;">ApnaBazaar</div>
+  <div style="flex:1; background:#F9FAFB; border-radius:24px; padding:10px 14px; display:flex; align-items:center; gap:8px;">
+    <span>🔍</span><input id="searchInput" placeholder="Search..." style="border:none; background:transparent; outline:none; width:100%; font-size:14px;" onkeyup="filterProducts()">
+  </div>
+  <div style="background:#FFF0E6; padding:6px 10px; border-radius:20px; font-size:12px;">📍 Karachi</div>
+</div>
+
+<!-- 2. CATEGORIES SCROLL -->
+<div style="background:white; padding:12px 16px; display:flex; gap:10px; overflow-x:auto; white-space:nowrap;">
+  <div onclick="filterCat('all')" style="background:#111827; color:white; padding:8px 16px; border-radius:20px; font-size:13px;">All</div>
+  <div onclick="filterCat('Mobiles')" style="background:#F3F4F6; padding:8px 16px; border-radius:20px; font-size:13px;">📱 Mobiles</div>
+  <div onclick="filterCat('Cars')" style="background:#F3F4F6; padding:8px 16px; border-radius:20px; font-size:13px;">🚗 Cars</div>
+  <div onclick="filterCat('Property')" style="background:#F3F4F6; padding:8px 16px; border-radius:20px; font-size:13px;">🏠 Property</div>
+  <div onclick="filterCat('Home')" style="background:#F3F4F6; padding:8px 16px; border-radius:20px; font-size:13px;">🛋️ Home</div>
+</div>
+
+<!-- 3. PRODUCT GRID -->
+<div id="productGrid" style="display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:12px;"></div>
+
+</div>
+
+<script>
+// PRODUCTS DATA
+const products = [
+ {id:1, title:"iPhone 14 Pro Max PTA", price:185000, city:"Karachi", cat:"Mobiles", img:"https://images.unsplash.com/photo-1678911820864-e2c567c655d7?w=400", featured:true},
+ {id:2, title:"Honda CD 70 2024 New", price:85000, city:"Lahore", cat:"Cars", img:"https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=400", featured:false},
+ {id:3, title:"5 Marla House DHA", price:8500000, city:"Lahore", cat:"Property", img:"https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400", featured:true},
+ {id:4, title:"Sofa Set 5 Seater", price:45000, city:"Islamabad", cat:"Home", img:"https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400", featured:false},
+ {id:5, title:"Samsung S23 Ultra", price:195000, city:"Karachi", cat:"Mobiles", img:"https://images.unsplash.com/photo-1610945264803-c22b62d2a7b3?w=400", featured:false},
+ {id:6, title:"Corolla GLI 2022", price:4200000, city:"Karachi", cat:"Cars", img:"https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=400", featured:true},
+];
+
+function render(list){
+  document.getElementById('productGrid').innerHTML = list.map(p=>`
+    <div onclick="openProduct(${p.id})" style="background:white; border-radius:16px; overflow:hidden; border:1px solid #F3F4F6;">
+      <div style="position:relative;">
+        <img src="${p.img}" style="width:100%; height:140px; object-fit:cover;">
+        ${p.featured?'<span style="position:absolute; top:6px; left:6px; background:#FFD700; font-size:9px; padding:3px 6px; border-radius:10px; font-weight:bold;">⭐ FEATURED</span>':''}
+        <div style="position:absolute; top:6px; right:6px; background:white; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center;">❤️</div>
+      </div>
+      <div style="padding:10px;">
+        <div style="font-weight:700; font-size:14px; color:#111827;">Rs ${p.price.toLocaleString()}</div>
+        <div style="font-size:12px; color:#374151; margin-top:4px; height:34px; overflow:hidden; line-height:1.3;">${p.title}</div>
+        <div style="font-size:11px; color:#9CA3AF; margin-top:6px; display:flex; justify-content:space-between;"><span>📍 ${p.city}</span><span>2h ago</span></div>
+      </div>
+    </div>
+  `).join('');
 }
-.modern-card:hover {
-  border-color: #FF6B00;
-  box-shadow: 0 12px 24px rgba(0,0,0,0.08);
-  transform: translateY(-2px);
+
+function filterProducts(){
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  render(products.filter(p=>p.title.toLowerCase().includes(q)));
 }
-.modern-card img {
-  width: 100%;
-  aspect-ratio: 1/1;
-  object-fit: cover;
+function filterCat(c){
+  if(c=='all') render(products); else render(products.filter(p=>p.cat==c));
 }
-.card-content { padding: 12px; }
-.price { 
-  font-weight: 700; 
-  font-size: 16px; 
-  color: #111827;
-  font-family: 'Inter', sans-serif;
-}
-.title {
-  font-size: 14px;
-  color: #374151;
-  line-height: 1.4;
-  height: 40px;
-  overflow: hidden;
-}
-.meta {
-  font-size: 12px;
-  color: #9CA3AF;
-  margin-top: 6px;
-}
+function openProduct(id){ alert('Product ID: '+id+' - Detail Page Khulega'); }
+
+render(products);
+</script>
