@@ -9,17 +9,14 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - uses: android-actions/setup-android@v3
 
-      - name: Build Simple APK
+      - name: Build APK
         run: |
           python3 << 'PY'
           import os
           os.system("rm -rf android")
           os.makedirs("android/app/src/main/java/com/apnabazaar/app", exist_ok=True)
-          
           open("android/settings.gradle","w").write("include ':app'")
-          
           open("android/build.gradle","w").write("""
           buildscript {
               repositories { google(); mavenCentral() }
@@ -27,7 +24,6 @@ jobs:
           }
           allprojects { repositories { google(); mavenCentral() } }
           """)
-          
           open("android/app/build.gradle","w").write("""
           plugins { id 'com.android.application' }
           android {
@@ -47,7 +43,6 @@ jobs:
           }
           dependencies { implementation 'androidx.appcompat:appcompat:1.6.1' }
           """)
-          
           open("android/app/src/main/AndroidManifest.xml","w").write("""
           <manifest xmlns:android="http://schemas.android.com/apk/res/android">
               <uses-permission android:name="android.permission.INTERNET"/>
@@ -61,7 +56,6 @@ jobs:
               </application>
           </manifest>
           """)
-          
           open("android/app/src/main/java/com/apnabazaar/app/MainActivity.java","w").write("""
           package com.apnabazaar.app;
           import android.app.Activity;
@@ -80,9 +74,6 @@ jobs:
           }
           """)
           PY
-
-      - name: Compile APK
-        run: |
           cd android
           gradle wrapper --gradle-version 8.5
           chmod +x gradlew
